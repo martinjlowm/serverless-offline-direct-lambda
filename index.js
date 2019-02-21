@@ -17,12 +17,9 @@ class ServerlessPlugin {
   }
 
   startHandler() {
-    // Serverless Webpack overrides the location to its output directory. Set
-    // location to that directory.
     let location = '';
     try {
       location = this.serverless.service.custom['serverless-offline'].location;
-      this.serverless.service.custom['serverless-offline'].location = '';
     } catch (_) { }
 
     location = `${this.serverless.config.servicePath}/${location}`;
@@ -51,7 +48,7 @@ const addProxies = (functionsObject, location, tracing) => {
 
 const functionProxy = (functionBeingProxied, location, tracing) => ({
   name: `${functionBeingProxied.name}_proxy`,
-  handler: `${packagePath}/proxy.handler`,
+  handler: `../../${packagePath}/proxy.handler`,
   environment: functionBeingProxied.environment,
   events: [
     {
